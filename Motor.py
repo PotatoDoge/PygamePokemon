@@ -1,4 +1,5 @@
 import pygame
+from GameStage import *
 
 class motor:
     # Class Motor constructor
@@ -15,7 +16,7 @@ class motor:
         window = pygame.display.set_mode((600,600))
 
         # Title
-        pygame.display.set_caption("PokeCetys")
+        pygame.display.set_caption("Pokemon")
 
         #RGB COLORS
         white = [255, 255, 255]
@@ -29,14 +30,23 @@ class motor:
         yellow = [215, 209, 43]
         lightBlue = [173, 216, 230]
 
+        # Clock that regulates the game's framerate
         clock = pygame.time.Clock()
 
+        # Boolean that controls the main loop
         gameRuns = True
 
+        # Object that regulates in which gameStage the player is
+        gameStage = gamestage(pygame.image.load('images/mainMenu/startMenuBG.png'),window,-40,0,"mainMenu")
 
-
+        # Method that draws the window and keeps updating it
         def drawWindow():
-            window.fill(blue)
+            window.blit(gameStage.bgImage,(gameStage.bgCoords))
+
+        def checkGameStage():
+            if(gameStage.stage == "mainMenu"):
+                gameStage.mainMenu()
+
 
         while gameRuns:
             # 27 milliseconds -- framerate
@@ -46,6 +56,7 @@ class motor:
                     # CHANGE THIS FOR SOME BOOLEANS TO FALSE
                     gameRuns = False
             drawWindow()
+            checkGameStage()
             pygame.display.update()
 
         pygame.quit()
