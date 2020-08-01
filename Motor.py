@@ -6,9 +6,13 @@ class motor:
     def __init__(self):
         print("Initializing game")
 
-    # When this function is called in the main, the game intializes
+    # When this function is called in the main class, the game intializes
     def run(self):
+
+        # GLOBAL VARIABLE EVENT -> CHECKS FOR MOUSE CLICKS AND EXIT
+        global event
         print("run")
+
         # INITIATES PYGAME
         pygame.init()
 
@@ -39,22 +43,30 @@ class motor:
         # Object that regulates in which gameStage the player is
         gameStage = gamestage(pygame.image.load('images/mainMenu/startMenuBG.png'),window,-40,0,"mainMenu")
 
-        # Method that draws the window and keeps updating it
+
+        """
+        Method that draws the window and keeps updating it
+        """
         def drawWindow():
             window.blit(gameStage.bgImage,(gameStage.bgCoords))
 
         def checkGameStage():
             if(gameStage.stage == "mainMenu"):
-                gameStage.mainMenu()
+                 gameStage.mainMenu(paleLavander, lightRed, green,event)
 
+            elif gameStage.stage == "optionsMenu":
+                gameStage.optionsMenu(paleLavander, lightRed, green, event)
+
+            elif gameStage.stage == "controlsMenu":
+                gameStage.controlsMenu(paleLavander, lightRed, green, event)
 
         while gameRuns:
             # 27 milliseconds -- framerate
             clock.tick(27)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
-                    # CHANGE THIS FOR SOME BOOLEANS TO FALSE
                     gameRuns = False
+
             drawWindow()
             checkGameStage()
             pygame.display.update()
