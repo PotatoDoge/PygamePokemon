@@ -42,6 +42,9 @@ class motor:
         # Object that regulates in which gameStage the player is
         gameStage = gamestage(pygame.image.load('images/mainMenu/startMenuBG.png'),window,-40,0,"mainMenu")
 
+        # PLAYER OBJECT
+        player = player(None,None,None)
+
 
         """
         Method that draws the window and keeps updating it
@@ -49,6 +52,9 @@ class motor:
         def drawWindow():
             window.blit(gameStage.bgImage,(gameStage.bgCoords))
 
+        """
+        Method that checks in which section of the game the player is
+        """
         def checkGameStage():
             if(gameStage.stage == "mainMenu"):
                  gameStage.mainMenu(paleLavander, lightRed, green,event)
@@ -62,8 +68,19 @@ class motor:
             elif gameStage.stage == "createPlayer":
                 createPlayer()
 
+        """
+        Method that manages the logic of creating the playerself.
+        This method is not in the GameStage class because it manages an object
+        instantiated in this class
+        """
         def createPlayer():
-            window.fill(black)
+            gameStage.bgImage = pygame.image.load('images/backgrounds/introBG.png')
+            gameStage.bgCoords = [0,0]
+            mouse = pygame.mouse.get_pos()
+            oakPhrases = ['Welcome, I am professor Oak','I will guide you in this new experience',
+                          'What is your name?','It is nice to meet you ' + player.name, "Which character do you want to be?",
+                          'Perfect!','Now, choose your starter pokemon', 'Perfect! You are ready to go!']
+
 
 
         while gameRuns:
