@@ -11,7 +11,6 @@ class motor:
 
         # GLOBAL VARIABLE EVENT -> CHECKS FOR MOUSE CLICKS AND EXIT
         global event
-        print("run")
 
         # INITIATES PYGAME
         pygame.init()
@@ -59,6 +58,13 @@ class motor:
 
             elif gameStage.stage == "controlsMenu":
                 gameStage.controlsMenu(paleLavander, lightRed, green, event)
+
+            elif gameStage.stage == "createPlayer":
+                createPlayer()
+
+        def createPlayer():
+            window.fill(black)
+
 
         while gameRuns:
             # 27 milliseconds -- framerate

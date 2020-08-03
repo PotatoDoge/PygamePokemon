@@ -19,6 +19,8 @@ class gamestage:
         if playButton.hover(mouse):
             playButton.color = green
             playButton.draw()
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                self.stage = "createPlayer"
 
         if moreButton.hover(mouse):
             moreButton.color = green
@@ -47,6 +49,7 @@ class gamestage:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.stage = "mainMenu"
 
+    # IT IS MISSING THE OPTION OF CHANGING THE CONTROLS!!!!!!!!
     def controlsMenu(self,paleLavander,lightRed,green,event):
         mouse = pygame.mouse.get_pos()
 
