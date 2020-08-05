@@ -1,5 +1,7 @@
 import pygame
 from GameStage import *
+from Text import *
+from Player import *
 
 class motor:
     # Class Motor constructor
@@ -43,7 +45,13 @@ class motor:
         gameStage = gamestage(pygame.image.load('images/mainMenu/startMenuBG.png'),window,-40,0,"mainMenu")
 
         # PLAYER OBJECT
-        player = player(None,None,None)
+        trainer = player("","","")
+
+        # professor oak's dialogue counter
+        oPC = 0
+
+        # Boolean that sets the player's gender
+        isMale = None
 
 
         """
@@ -68,6 +76,16 @@ class motor:
             elif gameStage.stage == "createPlayer":
                 createPlayer()
 
+        def timeDelay(x, td):
+            j = 0
+            while j < x:
+                pygame.time.delay(td)
+                j += 1
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        j = x + 3
+                        pygame.quit()
+
         """
         Method that manages the logic of creating the playerself.
         This method is not in the GameStage class because it manages an object
@@ -77,11 +95,29 @@ class motor:
             gameStage.bgImage = pygame.image.load('images/backgrounds/introBG.png')
             gameStage.bgCoords = [0,0]
             mouse = pygame.mouse.get_pos()
+            keys = pygame.key.get_pressed()
             oakPhrases = ['Welcome, I am professor Oak','I will guide you in this new experience',
-                          'What is your name?','It is nice to meet you ' + player.name, "Which character do you want to be?",
+                          'What is your name?','It is nice to meet you ' + trainer.name, "Which character do you want to be?",
                           'Perfect!','Now, choose your starter pokemon', 'Perfect! You are ready to go!']
 
-
+            oakPhrasesTextBox = text(window,oakPhrases[oPC])
+            oakPhrasesTextBox.draw()
+            if keys[pygame.K_SPACE]:
+                if oPC == 2:
+                    if trainer.nameMethod != "":
+                        oPC +=1
+                        timeDelay(30,10)
+                elif oPC == 4:
+                    if isMale is not None:
+                        oPC+=1
+                        timeDelay(30,10)
+                elif oPC == 6:
+                    if trainer.starterPokemon is not "":
+                        oPC +=1
+                        timeDelay(30,10)
+                else:
+                    oPC +=1
+                    timeDelay(30,10)
 
         while gameRuns:
             # 27 milliseconds -- framerate
