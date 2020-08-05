@@ -47,7 +47,7 @@ class motor:
         # PLAYER OBJECT
         trainer = player("","","")
 
-        # professor oak's dialogue counter
+        # professor oak's dialogue counter oPC stands for oakPhrasesCounter
         oPC = 0
 
         # Boolean that sets the player's gender
@@ -92,6 +92,7 @@ class motor:
         instantiated in this class
         """
         def createPlayer():
+            nonlocal oPC
             gameStage.bgImage = pygame.image.load('images/backgrounds/introBG.png')
             gameStage.bgCoords = [0,0]
             mouse = pygame.mouse.get_pos()
