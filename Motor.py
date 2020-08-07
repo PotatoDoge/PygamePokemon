@@ -2,6 +2,7 @@ import pygame
 from GameStage import *
 from Text import *
 from Player import *
+from TextInput import *
 
 class motor:
     # Class Motor constructor
@@ -47,7 +48,7 @@ class motor:
         # PLAYER OBJECT
         trainer = player("","","")
 
-        # professor oak's dialogue counter oPC stands for oakPhrasesCounter
+        # professor oak's dialogue counter -----  oPC stands for oakPhrasesCounter
         oPC = 0
 
         # Boolean that sets the player's gender
@@ -119,6 +120,9 @@ class motor:
                 else:
                     oPC +=1
                     timeDelay(30,10)
+
+            if oPC == 2:
+
 
         while gameRuns:
             # 27 milliseconds -- framerate
