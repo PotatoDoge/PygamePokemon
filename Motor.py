@@ -54,6 +54,9 @@ class motor:
         # Boolean that sets the player's gender
         isMale = None
 
+        # Object that allows the user to input the player's name
+        txtInput = textInput(window,300,380,180,40,trainer.name)
+
 
         """
         Method that draws the window and keeps updating it
@@ -94,6 +97,7 @@ class motor:
         """
         def createPlayer():
             nonlocal oPC
+            nonlocal isMale
             gameStage.bgImage = pygame.image.load('images/backgrounds/introBG.png')
             gameStage.bgCoords = [0,0]
             mouse = pygame.mouse.get_pos()
@@ -106,7 +110,7 @@ class motor:
             oakPhrasesTextBox.draw()
             if keys[pygame.K_SPACE]:
                 if oPC == 2:
-                    if trainer.nameMethod != "":
+                    if trainer.name != "":
                         oPC +=1
                         timeDelay(30,10)
                 elif oPC == 4:
@@ -122,6 +126,45 @@ class motor:
                     timeDelay(30,10)
 
             if oPC == 2:
+                if len(txtInput.text) < 13:
+                    txtInput.text = txtInput.inputLetters(trainer.name)
+                    timeDelay(6,11)
+                if keys[pygame.K_BACKSPACE]:
+                    txtInput.text = txtInput.text[:-1]
+                txtInput.draw()
+
+            # player's name is set to what was inputted in the txtInpt
+            trainer.name = txtInput.text
+
+            if oPC == 4:
+
+                boy = button(window, red, 260, 380, 80, 30, "")
+                girl = button(window, red, 450, 380, 80, 30, "")
+                window.blit(pygame.transform.scale(pygame.image.load('images/trainerSprites/male/maleTrainer.png'),(200,270)),(210,80))
+                window.blit(pygame.transform.scale(pygame.image.load('images/trainerSprites/female/femaleTrainer.png'),(140,270)),(420,80))
+
+
+                if isMale:
+                    boy.color = green
+                    girl.color = red
+                elif isMale is False:
+                    boy.color = red
+                    girl.color = green
+
+                boy.draw()
+                girl.draw()
+
+                if boy.hover(mouse):
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        trainer.gender = "male"
+                        isMale = True
+                if girl.hover(mouse):
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        trainer.gender = "female"
+                        isMale = False
+
+
+
 
 
         while gameRuns:
