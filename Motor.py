@@ -163,10 +163,6 @@ class motor:
                         trainer.gender = "female"
                         isMale = False
 
-
-
-
-
         while gameRuns:
             # 27 milliseconds -- framerate
             clock.tick(27)
