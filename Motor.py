@@ -3,6 +3,7 @@ from GameStage import *
 from Text import *
 from Player import *
 from TextInput import *
+from Pokedex import *
 
 class motor:
     # Class Motor constructor
@@ -56,6 +57,9 @@ class motor:
 
         # Object that allows the user to input the player's name
         txtInput = textInput(window,300,380,180,40,trainer.name)
+
+        playersPokedex = pokedex()
+        print(playersPokedex.generatePokeList())
 
 
         """

@@ -1,4 +1,4 @@
-class pokemon:
+class Pokemon:
     def __init__(self,name,type,lvl,ID,evolution,frontSprite,backSprite,initialHealthPoints):
         self.name = name
         self.type = type
