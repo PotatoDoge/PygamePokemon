@@ -47,7 +47,6 @@ class motor:
         gameStage = gamestage(pygame.image.load('images/mainMenu/startMenuBG.png'),window,-40,0,"mainMenu")
 
         # PLAYER OBJECT
-        #trainer = player("","","")
         trainer = player()
 
         # professor oak's dialogue counter -----  oPC stands for oakPhrasesCounter
@@ -55,6 +54,9 @@ class motor:
 
         # Boolean that sets the player's gender
         isMale = None
+
+        #WASD or arrows
+        arrowsOrWasd = True
 
         # Object that allows the user to input the player's name
         txtInput = textInput(window,300,380,180,40,trainer.name)
@@ -66,6 +68,63 @@ class motor:
         """
         def drawWindow():
             window.blit(gameStage.bgImage,(gameStage.bgCoords))
+            if gameStage.stage == 'tutorial':
+                trainer.draw(window)
+                trainer.pace+=1
+                if trainer.pace > 8:
+                    trainer.walkCount += 1
+                    trainer.pace = 0
+                if trainer.walkCount > 1:
+                    trainer.walkCount = 0
+
+        # AHORITA SOLO ESTA PARA EL TUTORIAL, FALTA ADAPTAR ESTE MÉTODO PARA EL MAPA COMPLETO
+        def checkMovement():
+            keys = pygame.key.get_pressed()
+            if arrowsOrWasd:
+                if keys[pygame.K_LEFT] and trainer.x > 10 and trainer.walkLeft:
+                    trainer.left = True
+                    trainer.right = False
+                    trainer.front = False
+                    trainer.back = False
+                    trainer.standing = False
+
+                    if trainer.x +10 > 10:
+                        trainer.x -=  trainer.vel
+
+                elif keys[pygame.K_RIGHT] and trainer.x + trainer.width< 590 and trainer.walkRight:
+                    trainer.left = False
+                    trainer.right = True
+                    trainer.front = False
+                    trainer.back = False
+                    trainer.standing = False
+
+                    if trainer.x + trainer.width + 10 < 590:
+                        trainer.x += trainer.vel
+
+                elif keys[pygame.K_UP] and trainer.y > 10 and trainer.walkBack:
+                    trainer.left = False
+                    trainer.right = False
+                    trainer.front = False
+                    trainer.back = True
+                    trainer.standing = False
+
+                    if trainer.y+10 > 0:
+                        trainer.y -= trainer.vel
+
+                elif keys[pygame.K_DOWN] and trainer.y + trainer.height < 590 and trainer.walkFront:
+                    trainer.left = False
+                    trainer. right = False
+                    trainer.front = True
+                    trainer.back = False
+                    trainer.standing = False
+
+                    if trainer.y + trainer.height +10 < 590:
+                        trainer.y += trainer.vel
+
+                else:
+                    trainer.standing = True
+
+
 
         """
         Method that checks in which section of the game the player is
@@ -84,7 +143,7 @@ class motor:
                 createPlayer()
 
             elif gameStage.stage == "tutorial":
-                gameStage.tutorial(event)
+                gameStage.tutorial(event,trainer)
 
         def timeDelay(x, td):
             j = 0
@@ -143,7 +202,7 @@ class motor:
                         timeDelay(30,10)
                 elif oPC == 7:
                     fade(600,600)
-                    gameStage.bgImage = pygame.image.load('images/backgrounds/pokeMenuBG.png')
+                    gameStage.bgImage = pygame.transform.scale(pygame.image.load('images/backgrounds/tutorial.png'),(600,600))
                     gameStage.stage = 'tutorial'
 
                 else:
@@ -239,6 +298,7 @@ class motor:
                 if event.type == pygame.QUIT:
                     gameRuns = False
 
+            checkMovement()
             drawWindow()
             checkGameStage()
 

@@ -57,9 +57,41 @@ class player:
         # how many pixels the player moves when a key is pressed
         self.vel = 3
         self.walkCount = 0
+        self.pace = 0
 
     # MISSING THE REST OF THIS CLASS AND ITS FUNCTIONS. FINISH LATER
 
     def createPokemon(self,pokemon):
         return Pokemon(pokemon.name,pokemon.type,pokemon.lvl,pokemon.ID,pokemon.evolution,
                        pokemon.frontSprite,pokemon.backSprite,pokemon.initialHealthPoints)
+
+    def draw(self,wn):
+        #self.hitbox = (self.x+5,self.y - 3, self.width -10, self.height + 2)
+        if self.gender == 'male':
+            if not self.standing:
+                if self.right:
+                    if self.walkCount == 0:
+                        wn.blit(mWR,(self.x,self.y))
+                    else:
+                        wn.blit(maleStandingSprites[2],(self.x,self.y))
+                elif self.left:
+                    if self.walkCount == 0:
+                        wn.blit(mWL,(self.x,self.y))
+                    else:
+                        wn.blit(maleStandingSprites[3],(self.x,self.y))
+
+                elif self.front:
+                    wn.blit(mWF[self.walkCount],(self.x,self.y))
+
+                elif self.back:
+                    wn.blit(mWB[self.walkCount],(self.x,self.y))
+
+            else:
+                if self.right:
+                    wn.blit(maleStandingSprites[2],(self.x,self.y))
+                elif self.left:
+                    wn.blit(maleStandingSprites[3],(self.x,self.y))
+                elif self.back:
+                    wn.blit(maleStandingSprites[1],(self.x,self.y))
+                elif self.front:
+                    wn.blit(maleStandingSprites[0],(self.x,self.y))
