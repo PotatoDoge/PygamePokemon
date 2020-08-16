@@ -1,4 +1,5 @@
 import pygame
+from Pokemon import *
 
 maleStandingSprites = [pygame.image.load('images/trainerSprites/male/StandingFront.png'),
                        pygame.image.load('images/trainerSprites/male/StandingBack.png'),
@@ -14,7 +15,7 @@ mWB = [pygame.image.load('images/trainerSprites/male/WalkingBack1.png'),
        pygame.image.load('images/trainerSprites/male/WalkingBack2.png')]
 
 class player:
-    def __init__(self,gender,name, starterPokemon):
+    def __init__(self):
 
         # player's screen attributes   x = (windowWidth/2) - 20    y = (windowHeight/2) - 230
         self.x = 280
@@ -27,9 +28,9 @@ class player:
         self.Ypos = self.y
 
         # PLAYER'S ATTRIBUTES
-        self.gender = gender
-        self.name =  name
-        self.starterPokemon = starterPokemon
+        self.gender = ""
+        self.name =  ""
+        self.starterPokemon = Pokemon()
 
         # PLAYER'S DIRECTION
         self.standing = True
@@ -58,3 +59,7 @@ class player:
         self.walkCount = 0
 
     # MISSING THE REST OF THIS CLASS AND ITS FUNCTIONS. FINISH LATER
+
+    def createPokemon(self,pokemon):
+        return Pokemon(pokemon.name,pokemon.type,pokemon.lvl,pokemon.ID,pokemon.evolution,
+                       pokemon.frontSprite,pokemon.backSprite,pokemon.initialHealthPoints)

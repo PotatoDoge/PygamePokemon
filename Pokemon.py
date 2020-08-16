@@ -1,5 +1,5 @@
 class Pokemon:
-    def __init__(self,name,type,lvl,ID,evolution,frontSprite,backSprite,initialHealthPoints):
+    def __init__(self,name="",type="",lvl=0,ID=0,evolution=None,frontSprite=None,backSprite=None,initialHealthPoints=0):
         self.name = name
         self.type = type
         self.lvl = lvl

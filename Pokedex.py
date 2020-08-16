@@ -160,6 +160,7 @@ class pokedex:
     def __init__(self):
         self.cauhght = []
 
+    @staticmethod
     def generatePokeList(self):
         mew = Pokemon("Mew", "Psychic", 1, 151, None,MewSprites[0],MewSprites[1],300)  # LEGENDARY
         mewtwo = Pokemon("Mewtwo", "Psychic", 1, 150, None,MewtwoSprites[0],MewtwoSprites[1],200)  # LEGENDARY

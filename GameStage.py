@@ -67,3 +67,7 @@ class gamestage:
             returnButton.draw()
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.stage = "optionsMenu"
+
+    def tutorial(self,event):
+        self.bgImage = pygame.image.load('images/backgrounds/pokeMenuBG.png')
+        print("HERE")

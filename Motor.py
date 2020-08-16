@@ -47,7 +47,8 @@ class motor:
         gameStage = gamestage(pygame.image.load('images/mainMenu/startMenuBG.png'),window,-40,0,"mainMenu")
 
         # PLAYER OBJECT
-        trainer = player("","","")
+        #trainer = player("","","")
+        trainer = player()
 
         # professor oak's dialogue counter -----  oPC stands for oakPhrasesCounter
         oPC = 0
@@ -58,9 +59,7 @@ class motor:
         # Object that allows the user to input the player's name
         txtInput = textInput(window,300,380,180,40,trainer.name)
 
-        playersPokedex = pokedex()
-        print(playersPokedex.generatePokeList())
-
+        pkdx = pokedex.generatePokeList(self)
 
         """
         Method that draws the window and keeps updating it
@@ -84,6 +83,9 @@ class motor:
             elif gameStage.stage == "createPlayer":
                 createPlayer()
 
+            elif gameStage.stage == "tutorial":
+                gameStage.tutorial(event)
+
         def timeDelay(x, td):
             j = 0
             while j < x:
@@ -95,13 +97,27 @@ class motor:
                         pygame.quit()
 
         """
-        Method that manages the logic of creating the playerself.
+        Fade out screen effect
+        """
+        def fade(width, height):
+            fade = pygame.Surface((width, height))
+            fade.fill((0, 0, 0))
+            for alpha in range(0, 300):
+                fade.set_alpha(alpha)
+                drawWindow()
+                window.blit(fade, (0, 0))
+                pygame.display.update()
+                pygame.time.delay(2)
+
+        """
+        Method that manages the logic of creating the player itself.
         This method is not in the GameStage class because it manages an object
         instantiated in this class
         """
         def createPlayer():
             nonlocal oPC
             nonlocal isMale
+
             gameStage.bgImage = pygame.image.load('images/backgrounds/introBG.png')
             gameStage.bgCoords = [0,0]
             mouse = pygame.mouse.get_pos()
@@ -125,6 +141,9 @@ class motor:
                     if trainer.starterPokemon is not "":
                         oPC +=1
                         timeDelay(30,10)
+                elif oPC == 7:
+                    fade(600,600)
+                    gameStage.stage = 'tutorial'
                 else:
                     oPC +=1
                     timeDelay(30,10)
@@ -136,6 +155,7 @@ class motor:
                 if keys[pygame.K_BACKSPACE]:
                     txtInput.text = txtInput.text[:-1]
                 txtInput.draw()
+
 
             # player's name is set to what was inputted in the txtInpt
             trainer.name = txtInput.text
@@ -166,6 +186,55 @@ class motor:
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         trainer.gender = "female"
                         isMale = False
+            if oPC == 6:
+                newBulbasaur = pygame.transform.scale(pkdx[0].frontSprite,(150,150))
+                newCharmander = pygame.transform.scale(pkdx[3].frontSprite,(150,150))
+                newSquirtle = pygame.transform.scale(pkdx[6].frontSprite,(150,150))
+
+                bulbasaurButton = button(window,red,275,260,40,18,"")
+                charmanderButton = button(window,red,375,260,40,18,"")
+                squirtleButton = button(window,red,475,260,40,18,"")
+
+                window.blit(newBulbasaur,(220,140))
+                window.blit(newCharmander,(320,140))
+                window.blit(newSquirtle,(420,140))
+
+                if trainer.starterPokemon.name == pkdx[0].name:
+                    bulbasaurButton.color = green
+                    charmanderButton.color = red
+                    squirtleButton.color = red
+                    print(trainer.starterPokemon.name)
+
+                elif trainer.starterPokemon.name == pkdx[3].name:
+                    bulbasaurButton.color = red
+                    charmanderButton.color = green
+                    squirtleButton.color = red
+                    print(trainer.starterPokemon.name)
+
+                elif trainer.starterPokemon.name == pkdx[6].name:
+                    bulbasaurButton.color = red
+                    charmanderButton.color = red
+                    squirtleButton.color = green
+                    print(trainer.starterPokemon.name)
+
+                if bulbasaurButton.hover(mouse):
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        trainer.starterPokemon = trainer.createPokemon(pkdx[0])
+                        print(trainer.starterPokemon.name)
+
+                if charmanderButton.hover(mouse):
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        trainer.starterPokemon = trainer.createPokemon(pkdx[3])
+                        print(trainer.starterPokemon.name)
+
+                if squirtleButton.hover(mouse):
+                    if event.type == pygame.MOUSEBUTTONDOWN:
+                        trainer.starterPokemon = trainer.createPokemon(pkdx[6])
+                        print(trainer.starterPokemon.name)
+
+                bulbasaurButton.draw()
+                charmanderButton.draw()
+                squirtleButton.draw()
 
         while gameRuns:
             # 27 milliseconds -- framerate
