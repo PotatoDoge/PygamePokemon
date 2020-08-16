@@ -138,12 +138,14 @@ class motor:
                         oPC+=1
                         timeDelay(30,10)
                 elif oPC == 6:
-                    if trainer.starterPokemon is not "":
+                    if trainer.starterPokemon.name is not "":
                         oPC +=1
                         timeDelay(30,10)
                 elif oPC == 7:
                     fade(600,600)
+                    gameStage.bgImage = pygame.image.load('images/backgrounds/pokeMenuBG.png')
                     gameStage.stage = 'tutorial'
+
                 else:
                     oPC +=1
                     timeDelay(30,10)
@@ -203,34 +205,28 @@ class motor:
                     bulbasaurButton.color = green
                     charmanderButton.color = red
                     squirtleButton.color = red
-                    print(trainer.starterPokemon.name)
 
                 elif trainer.starterPokemon.name == pkdx[3].name:
                     bulbasaurButton.color = red
                     charmanderButton.color = green
                     squirtleButton.color = red
-                    print(trainer.starterPokemon.name)
 
                 elif trainer.starterPokemon.name == pkdx[6].name:
                     bulbasaurButton.color = red
                     charmanderButton.color = red
                     squirtleButton.color = green
-                    print(trainer.starterPokemon.name)
 
                 if bulbasaurButton.hover(mouse):
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         trainer.starterPokemon = trainer.createPokemon(pkdx[0])
-                        print(trainer.starterPokemon.name)
 
                 if charmanderButton.hover(mouse):
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         trainer.starterPokemon = trainer.createPokemon(pkdx[3])
-                        print(trainer.starterPokemon.name)
 
                 if squirtleButton.hover(mouse):
                     if event.type == pygame.MOUSEBUTTONDOWN:
                         trainer.starterPokemon = trainer.createPokemon(pkdx[6])
-                        print(trainer.starterPokemon.name)
 
                 bulbasaurButton.draw()
                 charmanderButton.draw()
@@ -238,13 +234,14 @@ class motor:
 
         while gameRuns:
             # 27 milliseconds -- framerate
-            clock.tick(27)
+            clock.tick(30)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     gameRuns = False
 
             drawWindow()
             checkGameStage()
+
             pygame.display.update()
 
         pygame.quit()

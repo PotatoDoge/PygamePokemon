@@ -68,6 +68,6 @@ class gamestage:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.stage = "optionsMenu"
 
+    # CAMBIA TAMBIEN EL BGIMAGE EN EL CREATINGPLAYER, RECUERDA QUE ERA UN PLACEHOLDER
     def tutorial(self,event):
         self.bgImage = pygame.image.load('images/backgrounds/pokeMenuBG.png')
-        print("HERE")
