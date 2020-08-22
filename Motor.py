@@ -48,6 +48,8 @@ class motor:
 
         # PLAYER OBJECT
         trainer = player()
+        trainer.x = 300
+        trainer.y = 300
 
         # professor oak's dialogue counter -----  oPC stands for oakPhrasesCounter
         oPC = 0
@@ -88,7 +90,10 @@ class motor:
                     trainer.back = False
                     trainer.standing = False
 
-                    if trainer.x +10 > 10:
+                    if gameStage.bgCoords[0]<0 and trainer.x +10 > 10 and trainer.x == 300:
+                        gameStage.bgCoords[0] += trainer.vel
+
+                    else:
                         trainer.x -=  trainer.vel
 
                 elif keys[pygame.K_RIGHT] and trainer.x + trainer.width< 590 and trainer.walkRight:
@@ -98,8 +103,12 @@ class motor:
                     trainer.back = False
                     trainer.standing = False
 
-                    if trainer.x + trainer.width + 10 < 590:
+                    if gameStage.bgCoords[0]>-1400 and trainer.x + trainer.width + 10 < 590 and trainer.x == 300:
+                        gameStage.bgCoords[0] -= trainer.vel
+
+                    else:
                         trainer.x += trainer.vel
+
 
                 elif keys[pygame.K_UP] and trainer.y > 10 and trainer.walkBack:
                     trainer.left = False
@@ -108,7 +117,9 @@ class motor:
                     trainer.back = True
                     trainer.standing = False
 
-                    if trainer.y+10 > 0:
+                    if gameStage.bgCoords[1]<0 and trainer.y+10 > 0 and trainer.y == 300:
+                        gameStage.bgCoords[1] += trainer.vel
+                    else:
                         trainer.y -= trainer.vel
 
                 elif keys[pygame.K_DOWN] and trainer.y + trainer.height < 590 and trainer.walkFront:
@@ -118,7 +129,9 @@ class motor:
                     trainer.back = False
                     trainer.standing = False
 
-                    if trainer.y + trainer.height +10 < 590:
+                    if gameStage.bgCoords[1]>-175 and trainer.y + trainer.height +10 < 590 and trainer.y == 300:
+                        gameStage.bgCoords[1] -= trainer.vel
+                    else:
                         trainer.y += trainer.vel
 
                 else:
@@ -202,7 +215,7 @@ class motor:
                         timeDelay(30,10)
                 elif oPC == 7:
                     fade(600,600)
-                    gameStage.bgImage = pygame.transform.scale(pygame.image.load('images/backgrounds/tutorial.png'),(600,600))
+                    gameStage.bgImage = pygame.image.load('images/backgrounds/map.png')
                     gameStage.stage = 'tutorial'
 
                 else:
@@ -301,6 +314,7 @@ class motor:
             checkMovement()
             drawWindow()
             checkGameStage()
+
 
             pygame.display.update()
 
