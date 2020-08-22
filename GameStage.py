@@ -9,7 +9,7 @@ class gamestage:
         self.stage = stage
         self.width = 600
         self.height = 600
-        
+
 
     def mainMenu(self, paleLavander, lightRed , green,event):
         mouse = pygame.mouse.get_pos()
@@ -72,5 +72,5 @@ class gamestage:
                 self.stage = "optionsMenu"
 
     # CAMBIA TAMBIEN EL BGIMAGE EN EL CREATINGPLAYER, RECUERDA QUE ERA UN PLACEHOLDER
-    def tutorial(self,event,trainer):
+    def game(self,event,trainer):
         self.bgImage = pygame.image.load('images/backgrounds/map.png')

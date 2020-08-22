@@ -18,14 +18,14 @@ class player:
     def __init__(self):
 
         # player's screen attributes   x = (windowWidth/2) - 20    y = (windowHeight/2) - 230
-        self.x = 280
-        self.y = 270
+        self.x = 300
+        self.y = 300
         self.height = 30
         self.width = 30
 
         # POSITIONAL ATTRIBUTES
-        self.Xpos = self.x
-        self.Ypos = self.y
+        self.Xpos = 0
+        self.Ypos = 0
 
         # PLAYER'S ATTRIBUTES
         self.gender = ""

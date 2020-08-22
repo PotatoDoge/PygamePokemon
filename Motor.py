@@ -37,6 +37,8 @@ class motor:
         yellow = [215, 209, 43]
         lightBlue = [173, 216, 230]
 
+        font = pygame.font.SysFont('comicsans', 20, True, True)
+
         # Clock that regulates the game's framerate
         clock = pygame.time.Clock()
 
@@ -48,8 +50,6 @@ class motor:
 
         # PLAYER OBJECT
         trainer = player()
-        trainer.x = 300
-        trainer.y = 300
 
         # professor oak's dialogue counter -----  oPC stands for oakPhrasesCounter
         oPC = 0
@@ -70,7 +70,7 @@ class motor:
         """
         def drawWindow():
             window.blit(gameStage.bgImage,(gameStage.bgCoords))
-            if gameStage.stage == 'tutorial':
+            if gameStage.stage == 'game':
                 trainer.draw(window)
                 trainer.pace+=1
                 if trainer.pace > 8:
@@ -78,6 +78,14 @@ class motor:
                     trainer.pace = 0
                 if trainer.walkCount > 1:
                     trainer.walkCount = 0
+            pxp = font.render("X" + str(gameStage.bgCoords[0]), 1, (255, 255, 255))
+            pyp = font.render("YY" + str(gameStage.bgCoords[1]), 1, (255, 255, 255))
+            #px = font.render("X" + str(trainer.Xpos), 1, (255, 255, 255))
+            #py = font.render("Y" + str(trainer.Ypos), 1, (255, 255, 255))
+            window.blit(pxp, (480, 525))
+            window.blit(pyp, (480, 540))
+            #window.blit(px,(480,420))
+            #window.blit(px,(480,400))
 
         # AHORITA SOLO ESTA PARA EL TUTORIAL, FALTA ADAPTAR ESTE MÉTODO PARA EL MAPA COMPLETO
         def checkMovement():
@@ -96,6 +104,7 @@ class motor:
                     else:
                         trainer.x -=  trainer.vel
 
+
                 elif keys[pygame.K_RIGHT] and trainer.x + trainer.width< 590 and trainer.walkRight:
                     trainer.left = False
                     trainer.right = True
@@ -109,7 +118,6 @@ class motor:
                     else:
                         trainer.x += trainer.vel
 
-
                 elif keys[pygame.K_UP] and trainer.y > 10 and trainer.walkBack:
                     trainer.left = False
                     trainer.right = False
@@ -121,6 +129,7 @@ class motor:
                         gameStage.bgCoords[1] += trainer.vel
                     else:
                         trainer.y -= trainer.vel
+
 
                 elif keys[pygame.K_DOWN] and trainer.y + trainer.height < 590 and trainer.walkFront:
                     trainer.left = False
@@ -155,8 +164,8 @@ class motor:
             elif gameStage.stage == "createPlayer":
                 createPlayer()
 
-            elif gameStage.stage == "tutorial":
-                gameStage.tutorial(event,trainer)
+            elif gameStage.stage == "game":
+                gameStage.game(event,trainer)
 
         def timeDelay(x, td):
             j = 0
@@ -216,7 +225,7 @@ class motor:
                 elif oPC == 7:
                     fade(600,600)
                     gameStage.bgImage = pygame.image.load('images/backgrounds/map.png')
-                    gameStage.stage = 'tutorial'
+                    gameStage.stage = 'game'
 
                 else:
                     oPC +=1
