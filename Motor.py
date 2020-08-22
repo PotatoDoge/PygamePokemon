@@ -78,16 +78,23 @@ class motor:
                     trainer.pace = 0
                 if trainer.walkCount > 1:
                     trainer.walkCount = 0
+
+        """
+        Method that prints player's and map's coordinates on the screen. TESTING PURPOSES ONLY
+        """
+        def PRINTCOORDS():
             pxp = font.render("X" + str(gameStage.bgCoords[0]), 1, (255, 255, 255))
-            pyp = font.render("YY" + str(gameStage.bgCoords[1]), 1, (255, 255, 255))
-            #px = font.render("X" + str(trainer.Xpos), 1, (255, 255, 255))
-            #py = font.render("Y" + str(trainer.Ypos), 1, (255, 255, 255))
+            pyp = font.render("Y" + str(gameStage.bgCoords[1]), 1, (255, 255, 255))
+            px = font.render("PX" + str(trainer.Xpos), 1, (255, 255, 255))
+            py = font.render("PY" + str(trainer.Ypos), 1, (255, 255, 255))
             window.blit(pxp, (480, 525))
             window.blit(pyp, (480, 540))
-            #window.blit(px,(480,420))
-            #window.blit(px,(480,400))
+            window.blit(px,(480,400))
+            window.blit(py,(480,420))
 
-        # AHORITA SOLO ESTA PARA EL TUTORIAL, FALTA ADAPTAR ESTE MÉTODO PARA EL MAPA COMPLETO
+        """
+        Method that allows the player to move around the map with the keyboard
+        """
         def checkMovement():
             keys = pygame.key.get_pressed()
             if arrowsOrWasd:
@@ -104,6 +111,10 @@ class motor:
                     else:
                         trainer.x -=  trainer.vel
 
+                    trainer.Xpos -= trainer.vel
+
+
+
 
                 elif keys[pygame.K_RIGHT] and trainer.x + trainer.width< 590 and trainer.walkRight:
                     trainer.left = False
@@ -118,6 +129,8 @@ class motor:
                     else:
                         trainer.x += trainer.vel
 
+                    trainer.Xpos += trainer.vel
+
                 elif keys[pygame.K_UP] and trainer.y > 10 and trainer.walkBack:
                     trainer.left = False
                     trainer.right = False
@@ -129,6 +142,8 @@ class motor:
                         gameStage.bgCoords[1] += trainer.vel
                     else:
                         trainer.y -= trainer.vel
+
+                    trainer.Ypos -= trainer.vel
 
 
                 elif keys[pygame.K_DOWN] and trainer.y + trainer.height < 590 and trainer.walkFront:
@@ -143,10 +158,10 @@ class motor:
                     else:
                         trainer.y += trainer.vel
 
+                    trainer.Ypos += trainer.vel
+
                 else:
                     trainer.standing = True
-
-
 
         """
         Method that checks in which section of the game the player is
@@ -226,6 +241,8 @@ class motor:
                     fade(600,600)
                     gameStage.bgImage = pygame.image.load('images/backgrounds/map.png')
                     gameStage.stage = 'game'
+                    trainer.Xpos = trainer.x + gameStage.bgCoords[0]
+                    trainer.Ypos = trainer.y + gameStage.bgCoords[1]
 
                 else:
                     oPC +=1
