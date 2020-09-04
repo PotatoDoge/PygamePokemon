@@ -79,6 +79,8 @@ class motor:
                 if trainer.walkCount > 1:
                     trainer.walkCount = 0
 
+            PRINTCOORDS()
+
         """
         Method that prints player's and map's coordinates on the screen. TESTING PURPOSES ONLY
         """
@@ -182,6 +184,9 @@ class motor:
             elif gameStage.stage == "game":
                 gameStage.game(event,trainer)
 
+        """
+        Method that delays time in the game/inputs
+        """
         def timeDelay(x, td):
             j = 0
             while j < x:
@@ -330,6 +335,9 @@ class motor:
                 charmanderButton.draw()
                 squirtleButton.draw()
 
+        """
+        While loop that is in control of the game
+        """
         while gameRuns:
             # 27 milliseconds -- framerate
             clock.tick(30)
