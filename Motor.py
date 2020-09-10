@@ -182,7 +182,7 @@ class motor:
                 createPlayer()
 
             elif gameStage.stage == "game":
-                gameStage.game(event,trainer)
+                gameStage.game(event)
 
         """
         Method that delays time in the game/inputs
@@ -335,6 +335,36 @@ class motor:
                 charmanderButton.draw()
                 squirtleButton.draw()
 
+        '''
+        Method that displays tutorial messages
+        '''
+        def tutorialBox():
+            counter  = 0
+            tutorialPhrases = ['If you are close to a trainer, press E...' + '... to challenge them to a fight'+
+                               'Press M to access the menu' + 'If you are standing inside this square and your press C... ' +
+                               '...your pokemon will be healed' + 'Once you have defeated a trainer, you get their medal...' +
+                               '...and you can not fight them again' + 'When a pokemon reaches level 10/20, if it has an evolution, it will evolve']
+            while counter < len(tutorialPhrases):
+                keys = pygame.key.get_pressed()
+                tutorialTextBox = text(window,tutorialPhrases[counter])
+                tutorialTextBox.draw()
+                #print(str(counter))
+                if event.type == pygame.KEYDOWN:
+                    if keys[pygame.K_SPACE]:
+                        counter+=1
+                        timeDelay(30,10)
+
+                pygame.display.update()
+
+        '''
+        Method that checks if the trainer performed any action that can be performed in the game
+        '''
+        def checkAction():
+            keys = pygame.key.get_pressed()
+            if (trainer.Xpos>1911 and trainer.Ypos>696 and trainer.Xpos<1962 and trainer.Ypos<738):
+                if keys[pygame.K_i]:
+                    tutorialBox()
+
         """
         While loop that is in control of the game
         """
@@ -346,9 +376,9 @@ class motor:
                     gameRuns = False
 
             checkMovement()
+            checkAction()
             drawWindow()
             checkGameStage()
-
 
             pygame.display.update()
 

@@ -72,9 +72,6 @@ class gamestage:
                 self.stage = "optionsMenu"
 
     # CAMBIA TAMBIEN EL BGIMAGE EN EL CREATINGPLAYER, RECUERDA QUE ERA UN PLACEHOLDER
-    def game(self,event,trainer):
+    def game(self,event):
         keys = pygame.key.get_pressed()
         self.bgImage = pygame.image.load('images/backgrounds/map.png')
-        if (trainer.Xpos>1911 and trainer.Ypos>696 and trainer.Xpos<1962 and trainer.Ypos<738):
-            if keys[pygame.K_i]:
-                print("INFO HERE")
