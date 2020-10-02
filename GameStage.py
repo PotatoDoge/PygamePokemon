@@ -71,7 +71,6 @@ class gamestage:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 self.stage = "optionsMenu"
 
-    # CAMBIA TAMBIEN EL BGIMAGE EN EL CREATINGPLAYER, RECUERDA QUE ERA UN PLACEHOLDER
     def game(self,event):
         keys = pygame.key.get_pressed()
         self.bgImage = pygame.image.load('images/backgrounds/map.png')

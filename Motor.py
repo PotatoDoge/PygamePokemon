@@ -340,17 +340,22 @@ class motor:
         '''
         def tutorialBox():
             counter  = 0
-            tutorialPhrases = ['If you are close to a trainer, press E...' + '... to challenge them to a fight'+
-                               'Press M to access the menu' + 'If you are standing inside this square and your press C... ' +
-                               '...your pokemon will be healed' + 'Once you have defeated a trainer, you get their medal...' +
-                               '...and you can not fight them again' + 'When a pokemon reaches level 10/20, if it has an evolution, it will evolve']
+            tutorialPhrases = ['If you are close to a trainer, press E...' , '... to challenge them to a fight.',
+                               'Press M to access the menu.' , 'If you are standing inside this square... ' ,
+                               '...and you press C, your pokemon... ', '...will be healed.' , 'Once you have defeated a trainer, you...' ,
+                               '...get their medal and you can not...' , '...fight them again.' , 'When a pokemon reaches level 10 or 20... ',
+                               '...,if it has an evolution, it will evolve.']
+
             while counter < len(tutorialPhrases):
                 keys = pygame.key.get_pressed()
                 tutorialTextBox = text(window,tutorialPhrases[counter])
                 tutorialTextBox.draw()
                 #print(str(counter))
-                if event.type == pygame.KEYDOWN:
-                    if keys[pygame.K_SPACE]:
+                for event in pygame.event.get():
+                    if event.type == pygame.QUIT:
+                        gameRuns = False
+
+                if keys[pygame.K_SPACE]:
                         counter+=1
                         timeDelay(30,10)
 
