@@ -10,7 +10,6 @@ class gamestage:
         self.width = 600
         self.height = 600
 
-
     def mainMenu(self, paleLavander, lightRed , green,event):
         mouse = pygame.mouse.get_pos()
         playButton = button(self.window,paleLavander,75,480,100,50,"PLAY")

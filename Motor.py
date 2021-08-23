@@ -79,7 +79,7 @@ class motor:
                 if trainer.walkCount > 1:
                     trainer.walkCount = 0
 
-            PRINTCOORDS()
+            #PRINTCOORDS()
 
         """
         Method that prints player's and map's coordinates on the screen. TESTING PURPOSES ONLY
@@ -114,9 +114,6 @@ class motor:
                         trainer.x -=  trainer.vel
 
                     trainer.Xpos -= trainer.vel
-
-
-
 
                 elif keys[pygame.K_RIGHT] and trainer.x + trainer.width< 590 and trainer.walkRight:
                     trainer.left = False
@@ -239,7 +236,7 @@ class motor:
                         oPC+=1
                         timeDelay(30,10)
                 elif oPC == 6:
-                    if trainer.starterPokemon.name is not "":
+                    if trainer.starterPokemon.name != "":
                         oPC +=1
                         timeDelay(30,10)
                 elif oPC == 7:
@@ -374,7 +371,7 @@ class motor:
         While loop that is in control of the game
         """
         while gameRuns:
-            # 27 milliseconds -- framerate
+            # 30 milliseconds -- framerate
             clock.tick(30)
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
